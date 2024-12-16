@@ -8,7 +8,7 @@ export const Header = () => {
           <img
             src="https://i.postimg.cc/j28V0XHB/Uni-logo-transparente-granate.png"
             alt="Fourier bust"
-            className="w-27 h-28 rounded-md "
+            className="w-27 h-28 rounded-md hidden md:flex "
           />
           <h1 className="text-4xl font-bold text-center">
             Transformada Discreta
@@ -18,7 +18,7 @@ export const Header = () => {
           <img
             src="https://i.postimg.cc/Y072qbm9/Joseph-Fourier.jpg"
             alt="Fourier bust"
-            className="w-24 h-24 rounded-lg "
+            className="w-24 h-24 rounded-lg hidden md:flex "
           />
         </div>
         <p className="text-center max-w-3xl mx-auto text-lg">
