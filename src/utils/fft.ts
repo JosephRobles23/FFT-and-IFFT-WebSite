@@ -41,7 +41,7 @@ export const computeFFT = (signal: ComplexNumber[]): ComplexNumber[] => {
   const bits = Math.log2(N);
   const output = new Array(N).fill(null).map(() => ({ re: 0, im: 0 }));
 
-  // Bit-reverse copy
+  // Copia de bits invertidos
   for (let i = 0; i < N; i++) {
     output[bitReverse(i, bits)] = paddedSignal[i];
   }
@@ -49,7 +49,7 @@ export const computeFFT = (signal: ComplexNumber[]): ComplexNumber[] => {
   // Cooley-Tukey FFT
   for (let size = 2; size <= N; size *= 2) {
     const halfSize = size / 2;
-    const angle = (-2 * Math.PI) / size; // FFT uses negative angle
+    const angle = (-2 * Math.PI) / size; // FFT usa angulo negativo
 
     for (let i = 0; i < N; i += size) {
       for (let j = 0; j < halfSize; j++) {
@@ -61,7 +61,7 @@ export const computeFFT = (signal: ComplexNumber[]): ComplexNumber[] => {
         const even = output[i + j];
         const odd = twiddle;
 
-        // Butterfly operation
+        // Operación de la Mariposa
         output[i + j] = complexAdd(even, odd);
         output[i + j + halfSize] = complexSubtract(even, odd);
       }
@@ -70,6 +70,7 @@ export const computeFFT = (signal: ComplexNumber[]): ComplexNumber[] => {
 
   return output;
 };
+
 
 // **IFFT Function**
 export const computeIFFT = (signal: ComplexNumber[]): ComplexNumber[] => {
@@ -83,7 +84,7 @@ export const computeIFFT = (signal: ComplexNumber[]): ComplexNumber[] => {
   const bits = Math.log2(N);
   const output = new Array(N).fill(null).map(() => ({ re: 0, im: 0 }));
 
-  // Bit-reverse copy
+  // Copia de bits invertidos
   for (let i = 0; i < N; i++) {
     const reversedIndex = bitReverse(i, bits);
     output[reversedIndex] = paddedSignal[i];

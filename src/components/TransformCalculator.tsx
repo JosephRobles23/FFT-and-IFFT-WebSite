@@ -25,17 +25,17 @@ ChartJS.register(
 );
 
 interface Props {
-  operation: 'DFT' | 'IDFT'; // Specifies the type of transform to perform
+  operation: 'DFT' | 'IDFT'; // Especifica el tipo de transformación a realizar.
 }
 
 const parseComplexNumber = (str: string): ComplexNumber => {
   str = str.trim().replace(/\s/g, '');
 
-  // Handle pure real or imaginary numbers
+  // Manejar números puros reales o imaginarios.
   if (!str.includes('i')) return { re: parseFloat(str), im: 0 };
   if (str === 'i') return { re: 0, im: 1 };
 
-  // Parse complex numbers in the form a+bi or a-bi
+  // Analizar números complejos en la forma a+bi o a-bi
   const parts = str.split(/([+-](?!$))/);
   let re = 0,
     im = 0;
@@ -62,7 +62,7 @@ export const TransformCalculator: React.FC<Props> = ({ operation }) => {
       setError('');
       const values = input.split(',').map(parseComplexNumber);
 
-      // Use the appropriate function based on the operation
+      // Utiliza la función adecuada según la operación.
       const transformResult =
         operation === 'DFT' ? computeFFT(values) : computeIFFT(values);
       setResult(transformResult);
@@ -120,7 +120,7 @@ export const TransformCalculator: React.FC<Props> = ({ operation }) => {
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Ingrese números complejos o haga clic en + para constantes (por
-          ejemplo, 1+2i, 3-4i, π)
+          ejemplo, 1+2i, 3+4i, π)
         </label>
         <ComplexNumberInput value={input} onChange={setInput} />
       </div>
