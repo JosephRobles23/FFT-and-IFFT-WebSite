@@ -1,4 +1,5 @@
 import React from 'react';
+import { Analytics } from "@vercel/analytics/react"
 import { TransformCalculator } from './components/TransformCalculator';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -12,6 +13,7 @@ function App() {
         <div className="max-w-4xl mx-auto">
           <TransformCalculator operation="DFT" />
           <TransformCalculator operation="IDFT" />
+          <Analytics />
         </div>
       </main>
 
