@@ -22,6 +22,13 @@ Este proyecto utiliza las siguientes tecnologías:
 - **TypeScript**: Superset de JavaScript que añade tipado estático.
 - **TailwindCSS**: Framework de CSS para diseñar interfaces estilizadas y responsivas.
 
+## Interfaz 
+
+![image](https://github.com/user-attachments/assets/cd0e1622-ea8f-44e3-99ff-7539509b2e48)
+
+![image](https://github.com/user-attachments/assets/3bf25862-2cc1-4b5c-9949-3b812fe28bfa)
+
+
 ## Instalación y uso
 
 Si deseas clonar el proyecto y ejecutarlo localmente, sigue estos pasos:
