@@ -1,13 +1,15 @@
 # FFT-and-IFFT-WebSite
 
-Este repositorio contiene el código fuente de una aplicación web desarrollada para realizar cálculos de FFT (Transformada Rápida de Fourier) e IFFT (Transformada Inversa Rápida de Fourier). Este proyecto fue desarrollado como parte del curso **Análisis de Señales y Sistemas** en la **Universidad Nacional de Ingeniería**.
+Este repositorio contiene el código fuente de una aplicación web desarrollada para realizar cálculos de FFT (Transformada Rápida de Fourier), IFFT (Transformada Inversa Rápida de Fourier) y **Convolución Discreta**. Este proyecto fue desarrollado como parte del curso **Análisis de Señales y Sistemas** en la **Universidad Nacional de Ingeniería**.
 
 ## Características principales
 
 - **Cálculos de FFT e IFFT**: Herramienta interactiva para analizar señales mediante transformadas de Fourier.
-- **Interfaz amigable**: Diseñada con un enfoque simple e intuitivo.
+- **Convolución Discreta**: Calculadora avanzada para convolución de señales discretas con soporte para notaciones matemáticas.
+- **Interfaz amigable**: Diseñada con un enfoque simple e intuitivo con navegación entre herramientas.
 - **Tecnologías modernas**: Desarrollado con Vite, React, TypeScript y TailwindCSS para garantizar una experiencia de usuario rápida y eficiente.
-- ** Implementación gráfica**: Contiene graficos interactivos para la visualización de la señal de salida.
+- **Implementación gráfica**: Contiene gráficos interactivos para la visualización de señales de entrada y salida.
+- **Notaciones matemáticas avanzadas**: Soporte para impulsos discretos (δ[n]), escalones unitarios (u[n]) y combinaciones complejas.
 
 ## Enlace a la web
 
@@ -21,6 +23,7 @@ Este proyecto utiliza las siguientes tecnologías:
 - **React**: Biblioteca para construir interfaces de usuario.
 - **TypeScript**: Superset de JavaScript que añade tipado estático.
 - **TailwindCSS**: Framework de CSS para diseñar interfaces estilizadas y responsivas.
+- **Chart.js**: Librería para la generación de gráficos interactivos y responsivos.
 
 ## Interfaz 
 
@@ -28,6 +31,32 @@ Este proyecto utiliza las siguientes tecnologías:
 
 ![image](https://github.com/user-attachments/assets/3bf25862-2cc1-4b5c-9949-3b812fe28bfa)
 
+## Herramientas disponibles
+
+### 🌊 FFT / IFFT (Transformadas de Fourier)
+- **Transformada Rápida de Fourier (FFT)**: Convierte señales del dominio temporal al frecuencial
+- **Transformada Inversa (IFFT)**: Convierte señales del dominio frecuencial al temporal
+- **Entrada**: Números complejos y constantes matemáticas (π, e, φ, etc.)
+- **Salida**: Valores complejos con visualización separada de parte real e imaginaria
+
+### ⚡ Convolución Discreta
+- **Operación**: Calcula la convolución f[n] * g[n] de dos señales discretas
+- **Notaciones soportadas**:
+  - Números simples: `1, 2, 3, 4`
+  - Impulso discreto: `δ[n]`, `δ[n-2]`, `δ[n+1]`
+  - Escalón unitario: `u[n]`, `u[n-3]`, `u[n+2]`
+  - Amplitudes: `2*δ[n-1]`, `3*u[n-2]`
+  - Combinaciones: `δ[n] + 2*δ[n-1] - u[n-2]`
+- **Visualización**: Gráficas separadas para f[n], g[n] y el resultado f[n]*g[n]
+- **Control de rango**: Definir manualmente el rango de evaluación (inicio y final)
+- **Aplicaciones**: Análisis de sistemas lineales, filtrado digital, respuesta impulsional
+
+### 🎯 Características Avanzadas
+- **Navegación intuitiva**: Cambio fluido entre herramientas mediante navbar
+- **Gráficos interactivos**: Visualización con puntos discretos y etiquetas descriptivas
+- **Rango personalizable**: Control total sobre la región de análisis
+- **Responsive design**: Adaptable a diferentes tamaños de pantalla
+- **Validación en tiempo real**: Detección automática de errores en las entradas
 
 ## Instalación y uso
 
@@ -62,17 +91,21 @@ Si deseas clonar el proyecto y ejecutarlo localmente, sigue estos pasos:
 ## Estructura del proyecto
 
 - `src/`:
-  - **components/**: Componentes reutilizables de la interfaz.
-  - **pages/**: Páginas principales de la aplicación.
-  - **utils/**: Funciones auxiliares para los cálculos de FFT e IFFT.
-  - **styles/**: Configuración y estilos personalizados de TailwindCSS.
+  - **components/**: Componentes reutilizables de la interfaz
+    - `TransformCalculator.tsx`: Calculadora de FFT/IFFT
+    - `ConvolutionCalculator.tsx`: Calculadora de convolución discreta
+    - `ComplexNumberInput.tsx`: Input especializado para números complejos
+    - `Header.tsx`: Encabezado dinámico de la aplicación
+    - `Navbar.tsx`: Barra de navegación entre herramientas
+    - `Footer.tsx`: Pie de página
+  - **utils/**: Funciones auxiliares para cálculos matemáticos
+    - `fft.ts`: Implementación de algoritmos FFT/IFFT
+    - `convolution.ts`: Algoritmos de convolución discreta
+    - `signalFunctions.ts`: Generación y parsing de señales discretas
+    - `complexMath.ts`: Operaciones con números complejos
+  - **types/**: Definiciones de tipos TypeScript
+    - `math.ts`: Tipos para números complejos y operaciones
 
-## Próximas mejoras
-
-Algunas ideas para mejorar el proyecto en el futuro incluyen:
-
-- Añadir soporte para cargar señales desde archivos externos.
-- Optimizar el rendimiento de los cálculos para manejar señales más largas.
 
 ## Contribuciones
 
@@ -92,7 +125,32 @@ Algunas ideas para mejorar el proyecto en el futuro incluyen:
    ```
 4. Envía un pull request.
 
-   
+## Ejemplos de uso
+
+### FFT/IFFT
+```
+Entrada FFT: 1+2i, 3+4i, -i, π
+Salida: Transformada de Fourier de la secuencia
+```
+
+### Convolución Discreta
+```
+f[n]: δ[n] + δ[n-2]        (dos impulsos)
+g[n]: u[n] - u[n-3]        (ventana rectangular)
+Resultado: Convolución que muestra el efecto del filtro
+```
+
+```
+f[n]: 1, 2, 1              (secuencia numérica)
+g[n]: 1, 0, -1             (filtro diferenciador)
+Resultado: Señal filtrada
+```
+
+### Casos de estudio comunes
+- **Respuesta impulsional**: Usa δ[n] como entrada para caracterizar sistemas
+- **Filtrado**: Aplica ventanas y filtros a señales de prueba
+- **Análisis de sistemas**: Combina escalones y impulsos para estudiar comportamiento
+
 ## Extra : Script de FFT eh IFFT en TI-BASIC (Calculadora Texas Instruments TI-Nspire CX)
 1. Ingresa al siguiente link y descarga el script en tu ordenador: https://drive.google.com/drive/folders/16sKaea5lO7K4v4Ur_IF_S58xLFjuq4Pj?usp=sharing 
 2. Conecta tu Calculadora Texas y abre el emulador o aplicación(TI-Nspire CX CAS Student Software)

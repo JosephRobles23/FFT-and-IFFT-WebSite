@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { PlusCircle } from 'lucide-react';
-import { ComplexNumber, IrrationalValue } from '../types/math';
+import { IrrationalValue } from '../../types/math';
 import { IrrationalValueSelector } from './IrrationalValueSelector';
-import { MATHEMATICAL_CONSTANTS } from '../utils/constants';
+import { MATHEMATICAL_CONSTANTS } from '../../utils/FFT-IFFT/constants';
 
 interface Props {
   value: string;

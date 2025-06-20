@@ -1,6 +1,6 @@
 import React from 'react';
-import { MATHEMATICAL_CONSTANTS } from '../utils/constants';
-import { IrrationalValue } from '../types/math';
+import { MATHEMATICAL_CONSTANTS } from '../../utils/FFT-IFFT/constants';
+import { IrrationalValue } from '../../types/math';
 
 interface Props {
   onSelect: (value: IrrationalValue) => void;

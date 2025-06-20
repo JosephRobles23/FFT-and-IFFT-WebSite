@@ -1,4 +1,4 @@
-import { ComplexNumber } from '../types/math';
+import { ComplexNumber } from '../../types/math';
 import {
   complexAdd,
   complexSubtract,

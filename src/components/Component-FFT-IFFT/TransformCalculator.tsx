@@ -10,8 +10,8 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { ComplexNumber } from '../types/math';
-import { computeFFT, computeIFFT } from '../utils/fft';
+import { ComplexNumber } from '../../types/math';
+import { computeFFT, computeIFFT } from '../../utils/FFT-IFFT/fft';
 import { ComplexNumberInput } from './ComplexNumberInput';
 
 ChartJS.register(
@@ -31,23 +31,55 @@ interface Props {
 const parseComplexNumber = (str: string): ComplexNumber => {
   str = str.trim().replace(/\s/g, '');
 
-  // Manejar números puros reales o imaginarios.
+  // Manejar números puros reales
   if (!str.includes('i')) return { re: parseFloat(str), im: 0 };
+  
+  // Manejar números imaginarios puros
   if (str === 'i') return { re: 0, im: 1 };
+  if (str === '-i') return { re: 0, im: -1 };
+  if (str === '+i') return { re: 0, im: 1 };
 
-  // Analizar números complejos en la forma a+bi o a-bi
-  const parts = str.split(/([+-](?!$))/);
-  let re = 0,
-    im = 0;
+  // Casos especiales para números imaginarios con coeficientes
+  if (str.endsWith('i') && !str.includes('+') && !str.includes('-', 1)) {
+    // Casos como '2i', '-3i', '0.5i'
+    const coefficient = str.slice(0, -1);
+    if (coefficient === '' || coefficient === '+') return { re: 0, im: 1 };
+    if (coefficient === '-') return { re: 0, im: -1 };
+    return { re: 0, im: parseFloat(coefficient) };
+  }
 
-  parts.forEach((part) => {
-    if (part.includes('i')) {
-      const num = part.replace('i', '');
-      im = num === '' ? 1 : parseFloat(num);
-    } else if (part !== '+' && part !== '-') {
-      re = parseFloat(part);
+  // Analizar números complejos completos en la forma a+bi o a-bi
+  let re = 0, im = 0;
+  
+  // Usar regex más robusta para separar parte real e imaginaria
+  const complexRegex = /^([+-]?\d*\.?\d*)?([+-]?\d*\.?\d*)?i$/;
+  const match = str.match(complexRegex);
+  
+  if (match) {
+    // Si coincide con el patrón completo a+bi
+    const realPart = match[1];
+    const imagPart = match[2];
+    
+    if (realPart && realPart !== '') re = parseFloat(realPart);
+    if (imagPart && imagPart !== '') {
+      im = imagPart === '+' || imagPart === '' ? 1 : 
+          imagPart === '-' ? -1 : parseFloat(imagPart);
     }
-  });
+  } else {
+    // Fallback: usar el método de split mejorado
+    const parts = str.replace(/([+-])/g, '|$1').split('|').filter(p => p !== '');
+    
+    parts.forEach((part) => {
+      if (part.includes('i')) {
+        const num = part.replace('i', '');
+        if (num === '' || num === '+') im = 1;
+        else if (num === '-') im = -1;
+        else im = parseFloat(num);
+      } else if (part !== '+' && part !== '-' && part !== '') {
+        re = parseFloat(part);
+      }
+    });
+  }
 
   return { re, im };
 };
